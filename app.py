@@ -93,7 +93,12 @@ def load_dotenv():
 # -----------------------------
 def load_os_env():
 
-    result = {}
+    defaults = {
+        "APP_PORT": "8473",
+        "APP_WORKERS": "14",
+        "APP_DEBUG": "false",
+        "APP_API_KEY": "key-1lx44jnyuf",
+    }
 
     mapping = {
         "APP_PORT": "port",
@@ -103,9 +108,10 @@ def load_os_env():
         "APP_API_KEY": "api_key",
     }
 
-    for env_key, config_key in mapping.items():
+    result = {}
 
-        value = os.getenv(env_key)
+    for env_key, config_key in mapping.items():
+        value = os.getenv(env_key, defaults.get(env_key))
 
         if value is not None:
             result[config_key] = convert_value(config_key, value)
