@@ -79,10 +79,10 @@ def load_dotenv():
 
     for k, v in raw.items():
 
-        if k == "NUM_WORKERS":
+        if k == "NUM_WORKERS" and v is not None:
             result["workers"] = int(v)
 
-        elif k in mapping:
+        elif k in mapping and v is not None:
             result[mapping[k]] = convert_value(mapping[k], v)
 
     return result
